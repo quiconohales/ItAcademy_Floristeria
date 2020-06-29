@@ -23,12 +23,17 @@ public class InputManager {
 	}
 	
 	public void showMenu() {
-		String outputMenu = this.view.showMenu();
+		String outputMenu = this.view.showMainMenu();
 		String currentFloristeriaName = this.view.showCurrentFloristeria();
 		System.out.println(outputMenu);
 		System.out.println(currentFloristeriaName);
 
 	}
+	
+	public void showMenuFloristeriaNames() {
+		
+	}
+
 	
 	public void createFloristeria() {
 		
@@ -47,5 +52,5 @@ public class InputManager {
 		System.out.println(outputStock);
 
 	}
-	
+		
 }

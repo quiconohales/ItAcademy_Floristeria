@@ -2,7 +2,7 @@ package com.floristeria.view;
 
 public class FloristeriaView {
 
-	public String showMenu() {
+	public String showMainMenu() {
 		
 		return "";
 	}
@@ -13,6 +13,11 @@ public class FloristeriaView {
 	}
 	
 	public String showCurrentFloristeria() {
+		
+		return "";
+	}
+	
+	public String showMenuFloristeriaNames() {
 		
 		return "";
 	}
