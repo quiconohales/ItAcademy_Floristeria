@@ -1,5 +1,7 @@
 package com.floristeria.view;
 
+import java.util.List;
+
 import com.floristeria.domain.Arbre;
 import com.floristeria.domain.Decoracio;
 import com.floristeria.domain.Flor;
@@ -40,7 +42,10 @@ public class FloristeriaView {
 		for (Producte producte : floristeria.getStockList()) {
 			output += "Producte " + i + ": [preu = " + producte.getPrice() + "] ";
 			output += showProducteDetails(producte) + "\n";
+			i++;
 		}
+		
+		if(i==1) output +="Encara no has creat/afegit cap producte al stock d'aquesta floristeria.";
 		
 		return output;
 	}
@@ -58,13 +63,13 @@ public class FloristeriaView {
 		}else if (producte instanceof Arbre) {
 			
 			Arbre arbre = (Arbre) producte;
-			output +=" ARBRE ";
+			output +=" ARBRE :";
 			output +=" [alçada = " + arbre.getHeight() + " ]";	
 			
 		}else if (producte instanceof Decoracio) {
 			
 			Decoracio decor = (Decoracio) producte;
-			output +=" DECORACIO ";
+			output +=" DECORACIO :";
 			
 			String tipusMaterial = "";
 			if (decor.getMaterial() instanceof Fusta) {
@@ -83,7 +88,7 @@ public class FloristeriaView {
 		
 		String output = "";
 		if (floristeria!=null) {
-			output += "Floristeria Actual: "+ floristeria.getName() + "\n";
+			output += "Floristeria Actual: "+ floristeria.getName().toUpperCase() + "\n";
 		}else {
 			output += "Encara no has seleccionat cap floristeria actual. \n";
 		}
@@ -92,8 +97,32 @@ public class FloristeriaView {
 		return output;
 	}
 	
-	public String showMenuFloristeriaNames() {
+	public String showMenuFloristeriaNames(List<Floristeria> floristeriaList) {
 		
-		return "";
+		String output = "";
+		
+		output += "------------------------------------- \n";
+		output += "       LLISTAT DE FLORISTERIES        \n";
+		output += "------------------------------------- \n";
+		
+		int i=1;
+		for (Floristeria f : floristeriaList) {
+			output += i +". " + f.getName() + "\n";
+			i++;
+		}
+		
+		output += "------------------------------------- ";
+
+		
+		return output;
+	}
+	
+	public String endProgram() {
+		String output = "";
+		output += "------------------------------------- \n";
+		output += "      	   FI DEL PROGRAMA           \n";
+		output += "------------------------------------- \n";
+		return output;
+		
 	}
 }
