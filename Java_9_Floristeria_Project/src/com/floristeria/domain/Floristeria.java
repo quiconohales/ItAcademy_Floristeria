@@ -12,9 +12,15 @@ public class Floristeria {
 		this.name = name;
 		this.stockList = new ArrayList<Producte>();
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+
 	public void addProducte(Producte producte ){
 		this.stockList.add(producte);
 	}
+
 	public List <Producte> getStockList(){
 		return this.stockList;
 	}
