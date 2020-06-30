@@ -4,7 +4,8 @@ public class Arbre extends Producte {
 
 	private double height;
 
-	public Arbre(double height) {
+	public Arbre(double price, double height) {
+		super(price);
 		this.height = height;
 	}
 	

@@ -18,7 +18,7 @@ public class FloristeriaRepository {
 	}
 	
 	public void addFloristeria(Floristeria floristeria) {
-		
+		floristeriasList.add(floristeria);
 	}
 	
 }
