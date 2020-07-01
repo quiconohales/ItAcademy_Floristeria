@@ -17,15 +17,25 @@ public class InputManager {
 	
 	public InputManager() {
 		this.scanner = new Scanner(System.in);
-		this.commons = new InputCommons(this.scanner);
-		this.controller = new FloristeriaController();
-		this.view = new FloristeriaView();
+		this.commons = new InputCommons(this.scanner); //encapsula operacions bàsiques de entrada de dades per consola
+		this.controller = new FloristeriaController(); //encapsula operacions sobre objectes del domini
+		this.view = new FloristeriaView(); //encapsula les vistes a mostrar per consola
 	}
 	
 	public void close() {
 		this.scanner.close();
 	}
 	
+	/**
+	 * Mostra menu principal per pantalla i espera que l'usuari seleccioni per consola una opció
+	 * També es mostra la floristeria actual, si es que n'hi ha alguna seleccionada
+	 * 
+	 * Opcio 1 : Crear Floristeria
+	 * Opcio 2 : Seleccionar floristeria actual
+	 * Opcio 3 : Afegir productes a floristeria actual
+	 * Opcio 4 : Visualitzar stock de floristeria actual
+	 * Opcio 5 : Sortir del programa
+	 */
 	public void showMenu() {
 		
 		
@@ -51,7 +61,7 @@ public class InputManager {
 				  this.selectCurrentFloristeria();
 				  break;
 			  case 3:
-				  this.addProducte();
+				  this.addProducte_exceptionControl();
 				  break;
 			  case 4:
 				  this.showCurrentStockFloristeria();
@@ -72,17 +82,44 @@ public class InputManager {
 
 	}
 
-	//OPTION 1
+	/**
+	 * OPCIO 1
+	 * ------- 
+	 * Es crea una nova floristeria a partir de les dades introduïdes per l'usuari
+	 * Si l'usuari introdueix algun camp buit es mostra error per pantalla i es torna a demanar a l'usuari
+	 * que introdueixi les dades de nou
+	 * La nova floristeria creada es selecciona per defecte com a floristeria actual
+	 * 
+	 */
 	public void createFloristeria() {
 		//System.out.println("1 createFloristeria");
-		String name = commons.askString("Quin es el nom de la nova floristeria que vols crear?:");
-		this.controller.createFloristeria(name);
+		boolean correctFormat = false;
 		
-		System.out.println("Floristeria creada correctament.");
-		System.out.println("Selecciona des del menu aquesta floristeria com actual per a afegir stock.");
+		while(correctFormat==false) {
+			try {
+				String name = commons.askString("Quin es el nom de la nova floristeria que vols crear?:");
+				this.controller.createFloristeria(name);
+
+				System.out.println("Floristeria creada correctament.");
+				System.out.println("Selecciona des del menu aquesta floristeria com actual per a afegir stock.");
+				correctFormat=true;
+				
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+				System.out.println("Torna a introduir les dades de la floristeria de nou.");
+			}
+		}
 	}
 	
-	//OPTION 2
+	/**
+	 * OPCIO 2
+	 * -------
+	 * 
+	 * Es mostra un menu amb el llistat de totes les floristeries creades
+	 * Es demana a l'usuari que en seleccioni una per a seleccionarla com a floristeria actual
+	 * Si la llista està buida s'informar de que no s'ha creat encara cap floristeria
+	 * 
+	 */
 	public void selectCurrentFloristeria() {
 		
 		//System.out.println("2 selectCurrentFloristeria");
@@ -104,8 +141,54 @@ public class InputManager {
 			System.out.println("Encara no has creat cap floristeria.");
 		}
 	}
-	//OPTION 3
-	public void addProducte() {
+	
+	/**
+	 * OPCIO 3
+	 * -------
+	 * Es demana introduir les dades d'un nou producte per a crear-lo i afegir-lo a l'stock de la
+	 * floristeria actual. 
+	 * Si es produeix algun error en la introducció de dades (camp buit o numero negatiu) es torna a
+	 * demanar les dades per consola de nou.
+	 * 
+	 */
+	public void addProducte_exceptionControl() {
+		
+		boolean correctFormat = false;
+		
+		while (correctFormat==false) {
+			
+			try {
+				
+				addProducte();
+				correctFormat = true;
+				
+			}catch(Exception e) {
+				
+				System.out.println(e.getMessage());
+				System.out.println("Torna a introduir les dades del producte de nou.");
+				
+			}
+		}		
+	}
+	
+	/**
+	 * OPCIO 3
+	 * -------
+	 * Es demana a l'usuari les dades corresponents per a crear un nou producte i afegir-lo a l'stock de
+	 * la floristeria actual.
+	 * Si encara no s'ha seleccionat cap floristeria actual es mostra missatge informatiu per pantalla.
+	 * 
+	 * 1. es demana el preu del nou producte
+	 * 2. es demana que indiqui el tipus de producte (arbre, flor o decoracio)
+	 * 2.1. si selecciona arbre, se li demana a l'usuari que introdueixi l'alçada
+	 * 2.2. si selecciona flor, se li demana a l'usuari que introdueixi el color
+	 * 2.3. si selecciona decoracio, se li demana a l'usuari que seleccioni el material
+	 * 
+	 * Finalment es pregunta a l'usuari si vol afegir més productes, i en cas afirmatiu es tornar a iniciar el mètode
+	 * 
+	 * @throws Exception
+	 */
+	public void addProducte() throws Exception{
 		//System.out.println("3 addProducte");
 		
 		Floristeria floristeriaActual = controller.getCurrentFloristeria();
@@ -149,7 +232,15 @@ public class InputManager {
 		
 	}
 	
-	//OPTION 4
+	/**
+	 * OPCIO 4
+	 * -------
+	 * 
+	 * S'obté de la vista un String amb format que conté tot el llistat de productes de l'stock de la
+	 * floristeria i es mostra per pantalla.
+	 * Si encara no s'havia seleccionat cap floristeria actual, s'informa per pantalla.
+	 * 
+	 */
 	public void showCurrentStockFloristeria() {
 		
 		if(controller.getCurrentFloristeria()==null) {
@@ -161,9 +252,6 @@ public class InputManager {
 		}
 		
 	}
-		/*
-	public void showMenuFloristeriaNames() {
-		System.out.println("showMenuFloristeriaNames");
-	}*/
+	
 	
 }

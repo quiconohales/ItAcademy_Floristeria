@@ -20,22 +20,25 @@ public class FloristeriaController {
 		this.repository = new FloristeriaRepository();
 	}
 	
-	public void createFloristeria(String name) {
+	public void createFloristeria(String name) throws Exception{
 		Floristeria floristeria = new Floristeria(name);
 		this.repository.addFloristeria(floristeria);
+		
+		//seleccionar automaticament ultima floristeria creada com a floristeria actual 
+		this.currentSelectedFloristeria = floristeria; 
 	}
 	
-	public void addProducteFlor(Floristeria floristeria, double preu, String color) {
+	public void addProducteFlor(Floristeria floristeria, double preu, String color) throws Exception{
 		Flor flor = new Flor(preu,color);
 		floristeria.addProducte(flor);
 	}
 	
-	public void addProducteArbre(Floristeria floristeria, double preu, double height) {
+	public void addProducteArbre(Floristeria floristeria, double preu, double height) throws Exception{
 		Arbre arbre = new Arbre (preu, height);
 		floristeria.addProducte(arbre);
 	}
 	
-	public void addProducteDecoracio(Floristeria floristeria, double preu, Material tipusMaterial ) {
+	public void addProducteDecoracio(Floristeria floristeria, double preu, Material tipusMaterial ) throws Exception{
 		Decoracio decoracio = new Decoracio (preu, tipusMaterial);
 		floristeria.addProducte(decoracio);
 		

@@ -12,6 +12,10 @@ import com.floristeria.domain.Producte;
 
 public class FloristeriaView {
 
+	/**
+	 * Mostra el menu principal amb totes les opcions entre les quals pot escollir l'usuari
+	 * @return retorna un String amb format per ser mostrat el menu per pantalla
+	 */
 	public String showMainMenu() {
 		
 		String output="";
@@ -29,6 +33,14 @@ public class FloristeriaView {
 		return output;
 	}
 	
+	/**
+	 * Mostra tot l'stock de productes de la floristeria
+	 * Fa un recorregut de la llista de productes que conté l'objecte floristeria passat per paràmetre
+	 * i mostra tota la informació de cada producte
+	 * 
+	 * @param floristeria
+	 * @return retorna un String amb format per ser mostrat l'stock de la floristeria per pantalla
+	 */
 	public String showFloristeriaDetails(Floristeria floristeria) {
 		
 		String output="";
@@ -50,6 +62,13 @@ public class FloristeriaView {
 		return output;
 	}
 	
+	/**
+	 * Mostra tots els detalls del parametre producte en funció de la subclasse a la qual pertany 
+	 * (Arbre/Flor/Decoracio)
+	 * 
+	 * @param producte
+	 * @return retorna un String amb una linia que informa del tipus de producte i tota la seva informació
+	 */
 	public String showProducteDetails(Producte producte) {
 		
 		String output = "";
@@ -84,6 +103,13 @@ public class FloristeriaView {
 		return output;
 	}
 	
+	/**
+	 * Mostra el nom en majúscules de la floristeria actual passada per paràmetre
+	 * 
+	 * 
+	 * @param floristeria
+	 * @return retorna un String amb format per ser mostrada la floristeria actual per pantalla
+	 */
 	public String showCurrentFloristeria(Floristeria floristeria) {
 		
 		String output = "";
@@ -97,6 +123,12 @@ public class FloristeriaView {
 		return output;
 	}
 	
+	/**
+	 * Mostra un menu amb tots els noms de les floristeries del parametre llista floristeriaList
+	 * 
+	 * @param floristeriaList
+	 * @return retorna un String amb format per a mostrar el menu de floristeries
+	 */
 	public String showMenuFloristeriaNames(List<Floristeria> floristeriaList) {
 		
 		String output = "";
@@ -117,6 +149,11 @@ public class FloristeriaView {
 		return output;
 	}
 	
+	/**
+	 * Mostra fi del programa
+	 * 
+	 * @return
+	 */
 	public String endProgram() {
 		String output = "";
 		output += "------------------------------------- \n";
