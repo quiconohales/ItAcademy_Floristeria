@@ -5,7 +5,12 @@ import java.util.List;
 
 import com.floristeria.domain.Floristeria;
 
-public class FloristeriaRepository {
+/**
+ * Emmagatzema el llistat de floristeries creades i les operacions per treballar amb la llista
+ * @author Ivan
+ *
+ */
+public class FloristeriaRepository { 
 
 	private static List<Floristeria> floristeriasList = new ArrayList<>();
 	
