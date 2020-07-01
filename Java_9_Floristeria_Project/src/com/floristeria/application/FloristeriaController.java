@@ -17,7 +17,7 @@ public class FloristeriaController {
 	private Floristeria currentSelectedFloristeria = null; 
 	
 	public FloristeriaController(){
-		this.repository = new FloristeriaRepository();
+		this.repository = new FloristeriaRepository(); 
 	}
 	
 	/**
